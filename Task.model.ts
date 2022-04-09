@@ -1,4 +1,5 @@
 import Resouce from './Resource.model';
+import Status from './status.constants';
 
 class Task {
     name: string;
@@ -6,6 +7,7 @@ class Task {
     requireTimeToComplete: number;
     accessUsers: Array<string>;
     dependsOnTasks: Array<Task>;
+    status: Status;
 
     constructor(name, requireTimeToComplete, dependsOnResources = [], accessUsers= [], dependsOnTasks = []) {
         this.name = name;
@@ -14,6 +16,7 @@ class Task {
         this.dependsOnResources = dependsOnResources;
         this.accessUsers = accessUsers;
         this.dependsOnTasks = dependsOnTasks;
+        this.status = Status.ToDo;
     }
 }
 

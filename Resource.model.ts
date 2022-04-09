@@ -1,10 +1,10 @@
 class Resource {
     name: string;
-    available: boolean;
+    availability: boolean;
     
     constructor(name, availability = true) {
         this.name = name;
-        this.available = availability;
+        this.availability = availability;
     }
 }
 

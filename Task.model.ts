@@ -5,14 +5,15 @@ class Task {
     dependsOnResources: Array<Resouce>;
     requireTimeToComplete: number;
     accessUsers: Array<string>;
+    dependsOnTasks: Array<Task>;
 
-    constructor(name, requireTimeToComplete) {
-        //default values of resource and users for dependency.
-        this.dependsOnResources = [];
-        this.accessUsers = [];
-
+    constructor(name, requireTimeToComplete, dependsOnResources = [], accessUsers= [], dependsOnTasks = []) {
         this.name = name;
         this.requireTimeToComplete = requireTimeToComplete;
+
+        this.dependsOnResources = dependsOnResources;
+        this.accessUsers = accessUsers;
+        this.dependsOnTasks = dependsOnTasks;
     }
 }
 

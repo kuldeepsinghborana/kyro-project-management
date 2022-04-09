@@ -2,9 +2,9 @@ class Resource {
     name: string;
     available: boolean;
     
-    constructor(name) {
+    constructor(name, availability = true) {
         this.name = name;
-        this.available = true;
+        this.available = availability;
     }
 }
 

@@ -27,7 +27,28 @@ class Task {
         if (!this.dependsOnTasks.every(task => task.status === Status.Complete)) {
             return false;
         }
-        if(!this.accessUsers.some(user => availableUsers.includes(user)))
+        if(this.accessUsers.length && !this.accessUsers.some(user => availableUsers.includes(user))) {
+            return false;
+        }
+        return true;
+    }
+
+    async perform(availableUsers: Array<User>) {
+        let performingUser = availableUsers.find(user => this.accessUsers.includes(user));
+        performingUser && performingUser.setAvailability(performingUser);
+        this.dependsOnResources.forEach(resource => {
+            resource.setAvailability(false);
+        })
+        this.status = Status.InProgress;
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                this.status = Status.Complete;
+                performingUser && performingUser.setAvailability(true);
+                this.dependsOnResources.forEach(resource => resource.setAvailability(true));
+                resolve();
+            }, this.requireTimeToComplete);
+        })
+
     }
 }
 

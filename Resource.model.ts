@@ -6,6 +6,10 @@ class Resource {
         this.name = name;
         this.availability = availability;
     }
+
+    setAvailability (availability) {
+        this.availability = availability;
+    }
 }
 
 export default Resource;

@@ -18,17 +18,26 @@ class Project {
         return this.users.filter(user => user.availability);
     }
 
-    startProject() {
+    async startProject() {
         let todoTasks = this.getToDoTasks();
         while(todoTasks.length) {
-            for(let task of todoTasks) {
+            // try to perform all task and set the promises accordingly;
+            const Promises = todoTasks.map(async task => {
                 const availableUsers = this.getAvailableUsers();
                 if(task.canStart(availableUsers)) {
-                    //TODO: perform task here;
+                    return await task.perform(availableUsers);
                 }
+                return null;
+            });
+            await Promise.all(Promises)
+            let newTodoTask = this.getToDoTasks();
+            // if not a single todoTask get done then the project can not be completed
+            // so returning -1
+            if(newTodoTask.length === todoTasks.length) {
+                return -1;
             }
-            todoTasks = this.getToDoTasks();
         }
+        return 1;
     }
 }
 
